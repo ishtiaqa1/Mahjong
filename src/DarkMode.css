@@ -1,0 +1,63 @@
+:root {
+  --background: #BFE1B2;
+  --primary-text-color: #000000;
+  --secondary-text-color: #006677;
+  --icon: '☀️';
+  --btn: #e3eede;
+  --btnfade: #a0c88c;
+  --red-text: #e02222;
+  --green-text: #2d9b01;
+
+  --popup-background: #FFFFFF;
+  --popup-accent: #ececec;
+  --popup-btn: #eeeeee;
+  --popup-btnfade: #d7d7d7;
+  --hand-mark: #bfe1b2;
+
+  --game-screen-background: #4e6f42;
+  --game-screen-section: #739864;
+  --game-highlight: rgba(211, 249, 187, 0.592);
+  --tile-rack-hidden: #6e4b22;
+  --tile-rack-exposed: #8f6534;
+  --tile-rack-divider: #462c0e;
+  --tile-rack-tab: #cdb08c;
+  --tile-rack-tab-hover: #d4c0a6;
+}
+
+[data-dark-mode=true] {
+  --background: #2A2A2A;
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #FF77AA;
+  --icon: '🌙';
+  --btn: #535353;
+  --btnfade: #1d1d1d;
+  --red-text: #ff4e4e;
+  --green-text: #69cf41;
+
+  --popup-background: #303030;
+  --popup-accent: #262626;
+  --popup-btn: #535353;
+  --popup-btnfade: #1d1d1d;
+  --hand-mark: #3f6032;
+
+  --game-screen-background: #244319;
+  --game-screen-section: #0e2507;
+  --game-highlight: rgba(137, 170, 117, 0.592);
+  --tile-rack-hidden: #321e08;
+  --tile-rack-exposed: #493013;
+  --tile-rack-divider: #170d02;
+  --tile-rack-tab: #72532c;
+  --tile-rack-tab-hover: #5d4120;
+}
+
+
+button {
+  background-color: transparent;
+  color: var(--primary-text-color);
+  border: none;
+  padding: 14px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+}

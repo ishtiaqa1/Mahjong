@@ -1,0 +1,364 @@
+/* ---------- Generic Popup Styles ---------- */
+.game-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1005;
+}
+
+.game-popup-transparent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1005;
+}
+
+.game-popup-contents {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: max-content;
+    background-color: var(--popup-background);
+    border: #000000 solid;
+    border-width: 4px;
+    border-radius: 16px;
+}
+
+.game-popup-close-button {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--popup-btn);
+    transition: background-color 0.3s;
+    color: #e02222;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+}
+
+.game-popup-close-button:hover {
+    background-color: var(--popup-btnfade);
+}
+
+.game-popup-subtitle {
+    margin: 4px auto;
+    padding: 6px;
+    font-size: 18px;
+}
+
+.game-popup-button {
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    background-color: var(--popup-btn);
+    color: var(--green-text);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 4px auto;
+}
+
+.game-popup-cancel-button {
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    background-color: var(--popup-btn);
+    color: var(--red-text);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 4px auto;
+}
+
+.game-popup-button:hover,
+.game-popup-cancel-button:hover {
+    background-color: var(--popup-btnfade);
+}
+
+.game-popup-text-button {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    padding: inherit;
+}
+
+.settings-popup-header {
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.settings-popup-input {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    width: 400px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-text-color);
+    background-color: var(--popup-accent);
+}
+
+.settings-popup-input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+.settings-error {
+    margin: 0px;
+    color: var(--red-text);
+}
+
+
+
+/* ---------- Styles for Profile Popup ---------- */
+
+.profile-popup-contents {
+    position: absolute;
+    transform: translate(-8%, -8%);
+    padding: 24px;
+    width: 100%;
+    max-width: max-content;
+    background-color: var(--popup-background);
+    border: #000000 solid;
+    border-width: 2px;
+    border-radius: 16px;
+    text-align: left;
+    z-index: 1020;
+}
+
+.profile-two-col {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.profile-two-col>div {
+    text-align: left;
+    padding: 16px;
+}
+
+.profile-username {
+    margin: 0px;
+}
+
+
+/* ---------- Styles for Tile Counter ---------- */
+.tile-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding-top: 0px;
+}
+
+.tile-container>div {
+    padding: 16px;
+    text-align: center;
+}
+
+.tile-three-col {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: var(--popup-accent);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.tile-two-col {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: var(--popup-accent);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.tile-one-col {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: var(--popup-accent);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.tile-three-col>div,
+.tile-two-col>div,
+.tile-one-col>div {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.tile-counter-category {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 12px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+/* ---------- Styles for Score Card ---------- */
+.scorecard-category {
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.scorecard-column {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: var(--popup-accent);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 12px;
+    width: 220px;
+    line-height: 1.6;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.mahjong-red {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    color: var(--red-text);
+}
+
+.mahjong-green {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    color: var(--green-text);
+}
+
+.mahjong-black {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+}
+
+.help-button {
+    position: absolute;
+    top: 42px;
+    right: 37%;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--popup-btn);
+    transition: background-color 0.3s;
+    border-radius: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+}
+
+.help-button:hover {
+    background-color: var(--popup-btnfade);
+}
+
+.winning-hand {
+    background-color: var(--hand-mark);
+    color: var(--primary-text-color);
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 4px;
+    padding-left: 4px;
+    border-radius: 8px;
+}
+
+.winning-hand-button {
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.winning-hand-button:hover {
+    font-weight: 900;
+    border-style: solid;
+    border-color: var(--popup-btnfade);
+    border-width: 2px;
+    border-radius: 8px;
+    background-color: var(--popup-btnfade);
+    width: 100%;
+}
+
+.hand-condition-button {
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hand-condition {
+    width: fit-content;
+    margin: auto;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: var(--popup-accent);
+    border-radius: 16px;
+}
+
+.confirm-background {
+    background-color: var(--popup-accent);
+    padding: 16px;
+    border-radius: 12px;
+    width: max-content;
+    height: max-content;
+    margin: auto;
+}
+
+
+
+@media (max-width: 768px) {
+    .profile-popup-contents {
+        transform: translate(-24%, -72%) scale(0.75);
+    }
+
+    .game-popup-contents {
+        max-width: 70%;
+    }
+
+    .game-popup-button {
+        font-size: 16px;
+        font-weight: 700;
+        width: 100px;
+        padding: 10px 5px;
+    }
+
+    .settings-popup-input {
+        font-size: 16px;
+        max-width: 90%;
+        margin: 0px;
+        margin-bottom: 10px;
+    }
+
+    .hand-condition-button {
+        font-size: inherit;
+    }
+}

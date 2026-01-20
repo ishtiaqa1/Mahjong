@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fenix&display=swap');
+
+body {
+    font-family: 'Inria Sans', sans-serif;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.Mahjongtile {
+    display: flex;
+    color: #2d9b01;
+    width: 10px;
+    height: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #000;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Fenix', 'sans-serif';
+    font-size: 40px;
+    margin: 0;
+}
+
+.signup-container {
+    text-align: center;
+
+}
+
+.signup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.signup-box {
+    background-color: transparent;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.signup-box form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-text {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.user-and-pass, .email-and-pass {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 250px;
+}
+
+form label {
+    text-align: left;
+}
+
+.signup-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.66);
+    width: 100%;
+    max-width: 280px;
+}
+.checkbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.signup-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgba(245, 245, 245, 0.66);
+    color: #2d9b01;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 50%;
+    max-width: 200px;
+}
+
+.signup-button:hover {
+    background-color: #a0c88c;
+}
+
+.back-home {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(245, 245, 245, 0.66);
+    color: #2d9b01;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+}
+
+.login-text {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .signup-header {
+        gap: 5px;
+        flex-direction: column;
+    }
+
+    .signup-box {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .signup-button {
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 90%;
+    }
+
+    .signup-text {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

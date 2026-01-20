@@ -1,0 +1,38 @@
+.add-friends-main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    overflow: hidden; /* Prevents unnecessary page scrolling */
+}
+
+.add-friends-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10; /* Ensure it stays above the list */
+    text-align: center;
+    padding: 15px 0;
+    
+}
+
+.add-friends-container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-y: auto;
+    flex-grow: 1; /* Allows list to take up remaining space */
+    padding: 10px 0;
+}
+
+.search-bar {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    
+}
