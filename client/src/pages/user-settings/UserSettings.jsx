@@ -5,7 +5,7 @@ import CheckPassPopup from './CheckPassPopup';
 import UsernamePopup from './UsernamePopup';
 import EmailPopup from './EmailPopup';
 import PasswordPopup from './PasswordPopup';
-import BASE_URL from "../config.js"
+import BASE_URL from "../../config.js";
 
 export default function UserSettings() {
     const username = localStorage.getItem("username");

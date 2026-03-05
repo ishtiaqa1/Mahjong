@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import BASE_URL from "../config.js"
+import BASE_URL from "./config.js";
 
 // Tells the server that the user is online
 // If more than 3 minutes have passed since it was called with someone's username, they will be listed as "offline" on the Friends page

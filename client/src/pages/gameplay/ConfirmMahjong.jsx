@@ -5,7 +5,7 @@ import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../config.js"
+import BASE_URL from "../../config.js";
 
 export default function ConfirmMahjong(props) {
     const [displayHand, setDisplayHand] = useState(props.displayHand);

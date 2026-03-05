@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../config.js"
+import BASE_URL from "../../config.js";
 
 export default function PasswordPopup(props) {
     const [error, setError] = useState("");

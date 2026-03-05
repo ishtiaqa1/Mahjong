@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BASE_URL from "../config.js"
+import BASE_URL from "./config.js";
 
 export default function UploadPFP() {
     const [file, setFile] = useState(null);     //file being uploaded (must be some type of image; not verified)

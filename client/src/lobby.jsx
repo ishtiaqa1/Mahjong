@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { heartbeat } from "./Heartbeat.jsx";
-import BASE_URL from "../config.js"
+import BASE_URL from "./config.js";
 
 export default function LobbyToggle({ username }) {
   const [playerCount, setPlayerCount] = useState(0);

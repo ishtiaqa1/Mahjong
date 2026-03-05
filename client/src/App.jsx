@@ -4,7 +4,7 @@ import "./index.css";
 import DarkModeToggle from "./DarkMode.jsx";
 import "./DarkMode.css"
 import { heartbeat } from './Heartbeat.jsx';
-import BASE_URL from "../config.js"
+import BASE_URL from "./config.js";
 
 import AddFriends from './pages/addfriends.jsx';
 import AllFriends from "./pages/AllFriendsPage.jsx";

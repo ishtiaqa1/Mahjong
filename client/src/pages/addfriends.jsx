@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import "./page-styles/AddFriends.css";
-import BASE_URL from "../config.js"
+import BASE_URL from "../config.js";
 
 
 export default function ProfilePage() {
