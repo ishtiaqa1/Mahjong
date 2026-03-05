@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $servername = "sql210.infinityfree.com";
 $username = "if0_41315567";
-$password = "YOUR_PASSWORD";
-$dbname = "YOUR_DBNAME";
+$password = "2n464RikknH2Ui";
+$dbname = "if0_41315567_Mahjong";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
