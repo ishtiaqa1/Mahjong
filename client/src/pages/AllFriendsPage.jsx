@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
-import { heartbeat } from "../heartbeat.jsx";
+import { heartbeat } from "../Heartbeat.jsx";
 
 export default function AllFriendsPage() {
   const [friends, setFriends] = useState([]);
