@@ -5,7 +5,7 @@ import BASE_URL from "../config.js"
 import ProfilePopup from './ProfilePopup.jsx';
 import UploadPFP from '../UploadPFP.jsx';
 import "./page-styles/ProfilePage.css";
-import { heartbeat } from "../heartbeat.jsx";
+import { heartbeat } from "../Heartbeat.jsx";
 
 
 export default function ProfilePage() {
