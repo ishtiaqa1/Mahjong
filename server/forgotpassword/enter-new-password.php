@@ -2,16 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Establish connection to MySQL
-$servername = "localhost";
-$username = "ishtiaqa";  // Your MySQL username
-$password = "50396947";      // Your MySQL password
-$dbname = "cse442_2025_spring_team_ad_db"; // Your MySQL database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '../db.php';
 
 // Check if token exists and is still valid
 $token = $_GET["token"];
@@ -27,10 +18,10 @@ $user = $result->fetch_assoc();
 
 // If token has expired, give expired link, redirect to homepage, and quit
 if ($user === null) {
-    header("Location: https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/expired.php");
+    header("Location: https://bg2fl9fa.infinityfree.com/expired.php");
     exit();
 } elseif (strtotime($user["reset_token_expires_at"]) <= time()) {
-    header("Location: https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/expired.php");
+    header("Location: https://bg2fl9fa.infinityfree.com/expired.php");
     exit();
 }
 
@@ -113,7 +104,7 @@ if (is_dir($dir)) {
         </script>
 
         <div class="back-home">
-            <a href="https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/">
+            <a href="https://mahjong-seven-sage.vercel.app/">
                 <span class="back-button">&#8617;</span>Back to Homepage
             </a>
         </div>

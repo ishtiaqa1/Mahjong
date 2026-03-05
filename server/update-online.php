@@ -4,12 +4,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-$servername = "sql207.infinityfree.com ";
-$username = "if0_39875569";
-$password = "50396947";
-$dbname = "if0_39875569_data";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) { die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error])); }
+require_once __DIR__ . '/db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 if (!$data) { die(json_encode(["success" => false, "message" => "Invalid JSON input."])); }

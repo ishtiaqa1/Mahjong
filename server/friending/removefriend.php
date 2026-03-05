@@ -11,12 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 header("Content-Type: application/json");
 
-$servername = "localhost";
-$username = "ishtiaqa";
-$password = "50396947";
-$dbname = "cse442_2025_spring_team_ad_db";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+require_once __DIR__ . '/db.php';
 
 if ($conn->connect_error) {
     die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));

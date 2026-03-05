@@ -9,16 +9,7 @@ if ($_POST["password"] === "") {
     die("Update failed: mismatching passwords");
 }
 
-// Establish connection to MySQL
-$servername = "localhost";
-$username = "ishtiaqa";  // Your MySQL username
-$password = "50396947";      // Your MySQL password
-$dbname = "cse442_2025_spring_team_ad_db"; // Your MySQL database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '../db.php';
 
 // Check if token exists and is still valid
 $token = $_POST["token"];
@@ -34,14 +25,14 @@ $user = $result->fetch_assoc();
 
 // If token has expired, give expired link, redirect to homepage, and quit
 if ($user === null) {
-    header("Location: https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/expired.php");
+    header("Location: https://bg2fl9fa.infinityfree.com/expired.php");
     exit();
 } elseif (strtotime($user["reset_token_expires_at"]) <= time()) {
     $sql_newpass = "UPDATE users SET reset_token_hash = NULL, reset_token_expires_at = NULL WHERE id = ?";
     $stmt = $conn->prepare($sql_newpass);
     $stmt->bind_param("s", $user["id"]);
     $stmt->execute();
-    header("Location: https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/expired.php");
+    header("Location: https://bg2fl9fa.infinityfree.com/expired.php");
     exit();
 }
 
@@ -73,7 +64,7 @@ if (is_dir($dir)) {
 }
 
 // Redirect to homepage after five seconds
-header("refresh:5;url=https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/")
+header("refresh:5;url=https://mahjong-seven-sage.vercel.app/")
 ?>
 <!DOCTYPE html>
 <html>
@@ -107,7 +98,7 @@ header("refresh:5;url=https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442a
         <br/>
 
         <div class="back-home">
-            <a href="https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/">
+            <a href="https://mahjong-seven-sage.vercel.app/">
                 <span class="back-button">&#8617;</span>Back to Homepage
             </a>
         </div>

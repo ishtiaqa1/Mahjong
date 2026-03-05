@@ -4,17 +4,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
-$servername = "localhost";
-$username = "ishtiaqa";  // Your MySQL username
-$password = "50396947";      // Your MySQL password
-$dbname = "cse442_2025_spring_team_ad_db"; // Your MySQL database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '../db.php';
 
 // Fetch all users from the 'users' table
 $sql = "SELECT * FROM users";

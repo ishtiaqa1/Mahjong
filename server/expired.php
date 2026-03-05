@@ -44,7 +44,7 @@ if (is_dir($dir)) {
         <br/>
         
         <div class="back-home">
-            <a href="https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/">
+            <a href="https://mahjong-seven-sage.vercel.app/">
                 <span class="back-button">&#8617;</span>Back to Homepage
             </a>
         </div>

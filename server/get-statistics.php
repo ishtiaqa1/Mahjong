@@ -5,15 +5,7 @@ header('Content-Type: application/json');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$servername = "sql207.infinityfree.com ";
-$username = "if0_39875569";
-$password = "50396947";
-$dbname = "if0_39875569_data";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '/db.php';
 
 if (!isset($_GET['id'])) {
     echo json_encode(["success" => false, "message" => "Missing user ID."]);

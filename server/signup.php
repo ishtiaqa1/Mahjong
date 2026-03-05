@@ -4,17 +4,7 @@ error_reporting(E_ALL);
 // Set the Content-Type for JSON response
 header('Content-Type: application/json');
 
-$servername = "sql207.infinityfree.com ";
-$username = "if0_39875569";
-$password = "50396947";
-$dbname = "if0_39875569_data";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '/db.php';
 
 // Get data from the request body
 $data = json_decode(file_get_contents("php://input"), true);

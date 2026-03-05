@@ -4,18 +4,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
-
-$servername = "localhost";
-$username = "ishtiaqa"; 
-$password = "50396947";
-$dbname = "cse442_2025_spring_team_ad_db"; 
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '../db.php';
 
 $requestData = json_decode(file_get_contents('php://input'), true);
 

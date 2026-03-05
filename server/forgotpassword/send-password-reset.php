@@ -2,16 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Establish connection to MySQL
-$servername = "localhost";
-$username = "ishtiaqa";  // Your MySQL username
-$password = "50396947";      // Your MySQL password
-$dbname = "cse442_2025_spring_team_ad_db"; // Your MySQL database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+require_once __DIR__ . '../db.php';
 
 // Email, token, and expiration time (currently 5min)
 $email = $_POST["email"];
@@ -35,7 +26,7 @@ if ($conn->affected_rows) {
     $mail->Body = <<<END
     
     <h3>Play Mahjong: Reset Your Password</h3>
-    <b><a href="https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/enter-new-password.php?token=$token">Click here to reset your password.</a></b>
+    <b><a href="https://bg2fl9fa.infinityfree.com/enter-new-password.php?token=$token">Click here to reset your password.</a></b>
     <br/>If you did not request a password reset, you can safely ignore this email.
     <br/><br/>
     This link will expire in 5 minutes.
@@ -68,7 +59,7 @@ if (is_dir($dir)) {
 }
 
 // Redirect to homepage after five seconds
-header("refresh:5;url=https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/")
+header("refresh:5;url=https://mahjong-seven-sage.vercel.app/")
 ?>
 <!DOCTYPE html>
 <html>
@@ -106,7 +97,7 @@ header("refresh:5;url=https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442a
         </div>
 
         <div class="back-home">
-            <a href="https://se-dev.cse.buffalo.edu/CSE442/2025-Spring/cse-442ad/">
+            <a href="https://mahjong-seven-sage.vercel.app/">
                 <span class="back-button">&#8617;</span>Back to Homepage
             </a>
         </div>

@@ -7,19 +7,14 @@ header('Content-Type: multipart/form-data');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$servername = "sql207.infinityfree.com ";
-$username = "if0_39875569";
-$password = "50396947";
-$dbname = "if0_39875569_data";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) { die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error])); }
+require_once __DIR__ . '/db.php';
 
 if($_FILES['image']['size'] == 0){ die(json_encode(["success" => false, "message" => "Image size must be under 1MB."])); }
 
 
 $temp_path = $_FILES['image']['tmp_name'];
 $file_ext = $_FILES['image']['type'];
-$real_path = "/data/web/CSE442/2025-Spring/cse-442ad/profile-pictures/" . strval($_POST['id']) . "." . substr($file_ext, 6);
+$real_path = $_SERVER['DOCUMENT_ROOT'] . "/profile-pictures/" . strval($_POST['id']) . "." . substr($file_ext, 6);
 if(!move_uploaded_file($temp_path, $real_path)){ die(json_encode(["success" => false, "message" => "Error storing image on server."])); }
 
 $sql = "UPDATE users SET pfp_path = ? WHERE id = ?";
