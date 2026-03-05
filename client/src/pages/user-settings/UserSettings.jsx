@@ -5,7 +5,7 @@ import CheckPassPopup from './CheckPassPopup';
 import UsernamePopup from './UsernamePopup';
 import EmailPopup from './EmailPopup';
 import PasswordPopup from './PasswordPopup';
-
+import BASE_URL from "../config.js"
 
 export default function UserSettings() {
     const username = localStorage.getItem("username");
@@ -25,7 +25,7 @@ export default function UserSettings() {
         const fetchEmail = async () => {
             try {
                 const response = await fetch(
-                    `https://jokersmahjong.gamer.gd/htdocs/fetch-email.php?username=${username}`,
+                    `${BASE_URL}fetch-email.php?username=${username}`,
                 );
                 const query = await response.json();
                 // console.log(query);

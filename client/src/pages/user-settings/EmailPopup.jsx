@@ -1,46 +1,45 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from "../config.js"
 
-
-export default function UsernamePopup(props) {
+export default function EmailPopup(props) {
     const [error, setError] = useState("");
-    const [userForm, setUserForm] = useState({ olduser: localStorage.getItem("username"), newuser: "" });
+    const [emailForm, setEmailForm] = useState({ user: localStorage.getItem("username"), newemail: "" });
     const navigate = useNavigate();
 
-    const handleUserChange = (e) => {
+    const handleEmailChange = (e) => {
         setError("");
-        setUserForm({ ...userForm, [e.target.name]: e.target.value });
+        setEmailForm({ ...emailForm, [e.target.name]: e.target.value });
     }
 
-    const changeUsername = async (e) => {
+    const changeEmail = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/change-username.php",
-                userForm, { headers: { "Content-Type": "application/json" } }
+            const response = await axios.post(`${BASE_URL}change-email.php`,
+                emailForm, { headers: { "Content-Type": "application/json" } }
             );
             // console.log(response.data);
             setError("");
 
             if (response.data.success) {
-                setUserForm({ olduser: response.data.newuser, newuser: "" });
-                localStorage.setItem("username", response.data.newuser);
+                setEmailForm({ user: localStorage.getItem("username"), newemail: "" });
                 props.setTrigger(false);
                 navigate("/");
                 return true;
             } else {
-                setError("Username is unavailable");
+                setError("Email is unavailable");
                 return false;
             }
         } catch (error) {
-            console.error("Error changing username: ", error);
+            console.error("Error changing email: ", error);
             return false;
         }
     }
 
     const handleClose = () => {
         setError("");
-        setUserForm({ olduser: localStorage.getItem("username"), newuser: "" });
+        setEmailForm({ user: localStorage.getItem("username"), newemail: "" });
         props.setTrigger(false);
     }
 
@@ -48,19 +47,19 @@ export default function UsernamePopup(props) {
     return (props.trigger) ? (
         <div className='game-popup'>
             <div className='game-popup-contents'>
-                <h2 className='settings-popup-header'>Enter your new username</h2>
+                <h2 className='settings-popup-header'>Enter your new email address</h2>
                 <button className='game-popup-close-button' onClick={() => handleClose()} >&#x2716;</button>
 
-                <form onSubmit={(e) => changeUsername(e)}>
-                    <input type="hidden" name="olduser" value={userForm.olduser} />
+                <form onSubmit={(e) => changeEmail(e)}>
+                    <input type="hidden" name="user" value={emailForm.user} />
                     <input
                         className="settings-popup-input"
                         type="text"
-                        name="newuser"
-                        id="newuser"
+                        name="newemail"
+                        id="newemail"
                         defaultValue=""
-                        placeholder="New Username"
-                        onChange={handleUserChange}
+                        placeholder="New Email Address"
+                        onChange={handleEmailChange}
                         required
                     />
                     {error && <p className='settings-error'>{error}</p>}

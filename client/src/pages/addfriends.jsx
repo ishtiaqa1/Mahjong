@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import "./page-styles/AddFriends.css";
+import BASE_URL from "../config.js"
 
 
 export default function ProfilePage() {
@@ -27,7 +28,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/getusers.php");
+        const response = await fetch(`${BASE_URL}getusers.php`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,7 +58,7 @@ export default function ProfilePage() {
   const sendFriendRequest = async (requestedUserId) => {
     setLoading(true);
     try {
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/request-friend.php", {
+      const response = await fetch(`${BASE_URL}request-friend.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

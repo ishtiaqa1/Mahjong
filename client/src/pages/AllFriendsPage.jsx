@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
 import { heartbeat } from "../heartbeat.jsx";
@@ -25,7 +26,7 @@ export default function AllFriendsPage() {
       heartbeat(localStorage.getItem("username"));  //tells the server that this user is currently online
       try {
         const response = await fetch(
-          `https://jokersmahjong.gamer.gd/htdocs/getfriends.php?user1=${currentid}`
+          `${BASE_URL}getfriends.php?user1=${currentid}`
         );
         if (!response.ok) throw new Error("Failed to fetch friends");
 
@@ -44,7 +45,7 @@ export default function AllFriendsPage() {
 
   const removeFriend = async (friendId) => {
     try {
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/removefriend.php", {
+      const response = await fetch(`${BASE_URL}removefriend.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +70,7 @@ export default function AllFriendsPage() {
   const fetchStats = async (e, userid, username) => {
     try {
       const response = await fetch(
-        `https://jokersmahjong.gamer.gd/htdocs/get-statistics.php?id=${userid}`,
+        `${BASE_URL}get-statistics.php?id=${userid}`,
       );
       const query = await response.json();
       // console.log(query);

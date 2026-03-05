@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./page-styles/PendingRequests.css";
+import BASE_URL from "../config.js"
 
 
 export default function PendingRequestsPage() {
@@ -15,7 +16,7 @@ export default function PendingRequestsPage() {
     const fetchPendingRequests = async () => {
       try {
         const response = await fetch(
-          "https://jokersmahjong.gamer.gd/htdocs/get-pending-requests.php",
+          `${BASE_URL}get-pending-requests.php`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,7 +39,7 @@ export default function PendingRequestsPage() {
 
   const handleAcceptRequest = async (requesterId) => {
     try {
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/accept-friend.php", {
+      const response = await fetch(`${BASE_URL}accept-friend.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: currentid, requesterId }),
@@ -56,7 +57,7 @@ export default function PendingRequestsPage() {
 
   const handleDeleteRequest = async (requesterId) => {
     try {
-      await fetch("https://jokersmahjong.gamer.gd/htdocs/delete-request.php", {
+      await fetch(`${BASE_URL}delete-request.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: currentid, requesterId }),

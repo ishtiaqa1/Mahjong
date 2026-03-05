@@ -4,6 +4,7 @@ import "./index.css";
 import DarkModeToggle from "./DarkMode.jsx";
 import "./DarkMode.css"
 import { heartbeat } from './Heartbeat.jsx';
+import BASE_URL from "../config.js"
 
 import AddFriends from './pages/addfriends.jsx';
 import AllFriends from "./pages/AllFriendsPage.jsx";
@@ -39,8 +40,7 @@ export default function App() {
     const handleLogout = async () => {
         if (username) {
             try {
-                await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=leave", {
-                    //await fetch("http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=leave", {
+                await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `username=${username}`,

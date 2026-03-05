@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import BASE_URL from "../config.js"
 
 export default function CheckPassPopup(props) {
     const [error, setError] = useState("");
@@ -14,7 +14,7 @@ export default function CheckPassPopup(props) {
     const validatePassword = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/validate-password.php",
+            const response = await axios.post(`${BASE_URL}validate-password.php`,
                 passForm, { headers: { "Content-Type": "application/json" } }
             );
             // console.log(response.data);

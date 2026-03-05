@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
 import UploadPFP from '../UploadPFP.jsx';
@@ -44,7 +45,7 @@ export default function ProfilePage() {
     const fetchFriends = async () => {
       try {
         const response = await fetch(
-          `https://jokersmahjong.gamer.gd/htdocs/getfriends.php?user1=${currentid}`
+          `${BASE_URL}getfriends.php?user1=${currentid}`
         );
         if (!response.ok) throw new Error("Failed to fetch friends");
 
@@ -61,7 +62,7 @@ export default function ProfilePage() {
     const fetchStats = async () => {
       try {
         const response = await fetch(
-          `https://jokersmahjong.gamer.gd/htdocs/get-user-statistics.php?id=${currentid}`,
+          `${BASE_URL}get-user-statistics.php?id=${currentid}`,
         );
 
         const query = await response.json();
@@ -83,7 +84,7 @@ export default function ProfilePage() {
   const fetchFriendStats = async (e, userid, username) => {
     try {
       const response = await fetch(
-        `https://jokersmahjong.gamer.gd/htdocs/get-statistics.php?id=${userid}`,
+        `${BASE_URL}get-statistics.php?id=${userid}`,
       );
       const query = await response.json();
       // console.log(query);
@@ -102,7 +103,7 @@ export default function ProfilePage() {
 
   const HideStats = async () => {
     const userId = localStorage.getItem("userid");
-    const url = `https://jokersmahjong.gamer.gd/htdocs/hide-stats.php?userid=${userId}`;
+    const url = `${BASE_URL}hide-stats.php?userid=${userId}`;
 
     try {
       const res = await fetch(url);

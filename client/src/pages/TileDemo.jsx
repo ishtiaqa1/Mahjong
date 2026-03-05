@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import BASE_URL from "../config.js"
 
 import BaseTiles from "./gameplay/BaseTiles.jsx";
 import TestTiles from "./gameplay/TestTiles.jsx";
@@ -73,7 +74,7 @@ export default function TileDemo() {
                 const data = new URLSearchParams({ username });
                 const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
                 navigator.sendBeacon(
-                    "https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=leave",
+                    `${BASE_URL}update-lobby.php?action=leave`,
                     blob
                 );
             }
@@ -161,7 +162,7 @@ export default function TileDemo() {
                 return;
             }
 
-            const response = await axios.post('https://jokersmahjong.gamer.gd/htdocs/updateGames.php', {
+            const response = await axios.post(`${BASE_URL}updateGames.php`, {
                 user_id: userId,
             });
 
@@ -182,7 +183,7 @@ export default function TileDemo() {
                 return;
             }
 
-            const response = await axios.post('https://jokersmahjong.gamer.gd/htdocs/gamesWon.php', {
+            const response = await axios.post(`${BASE_URL}gamesWon.php`, {
                 user_id: userId,
             });
 
@@ -637,7 +638,7 @@ export default function TileDemo() {
 
     const leaveLobby = async () => {
         try {
-            const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=leave", {
+            const response = await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `username=${username}`,

@@ -5,6 +5,7 @@ import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from "../config.js"
 
 export default function ConfirmMahjong(props) {
     const [displayHand, setDisplayHand] = useState(props.displayHand);
@@ -355,7 +356,7 @@ export default function ConfirmMahjong(props) {
     const mahjongWin = () => {
         async function updateWins() {
             try {
-                const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/updateWins.php?", {
+                const response = await axios.post(`${BASE_URL}updateWins.php?`, {
                     user_id: userid
                 });
                 console.log(response.data);

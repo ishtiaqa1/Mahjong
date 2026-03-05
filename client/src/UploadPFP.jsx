@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import BASE_URL from "../config.js"
 
 export default function UploadPFP() {
     const [file, setFile] = useState(null);     //file being uploaded (must be some type of image; not verified)
@@ -10,14 +11,14 @@ export default function UploadPFP() {
     useEffect(() => {
         async function get_pfp(userid) {
             try{
-                const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/get-pfp.php?", {"id": userid}, {
+                const response = await axios.post(`${BASE_URL}get-pfp.php?`, {"id": userid}, {
                     headers: { "Content-Type": "application/json" }
                 });
                 if(response.data.success){
                     //I took the substring here because every time I changed it server-side, the SQL queries somehow broke; control coupling
                     //The random number stops the browser from caching the old profile picture and ignoring changes to it
                     const num = String(Math.floor(Math.random()*512));
-                    const path = "https://jokersmahjong.gamer.gd/htdocs/" + response.data.filepath.substring(9) + "?" + num;
+                    const path = BASE_URL + response.data.filepath.substring(9) + "?" + num;
                     //console.log(userid +": " + path);
                     setImage(<img src={path} className="profile-picture"/>);
                 } else {
@@ -51,7 +52,7 @@ export default function UploadPFP() {
         formData.append("id", id);
         formData.append("image", file);
         try{
-            const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/upload-pfp.php", formData, {
+            const response = await axios.post(`${BASE_URL}upload-pfp.php`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
             if(response.data.success){

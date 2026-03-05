@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
 import "./page-styles/LoginPage.css";
@@ -25,7 +26,7 @@ export default function LeaderboardPage() {
 
     async function getLeaderboard() {
         try {
-            const response = await axios.get("https://jokersmahjong.gamer.gd/htdocs/leaderboard.php", {
+            const response = await axios.get(`${BASE_URL}leaderboard.php`, {
                 responseType: "json",
             });
             // console.log(response.data);
@@ -45,7 +46,7 @@ export default function LeaderboardPage() {
     const fetchStats = async (e, userid, username) => {
         try {
             const response = await fetch(
-                `https://jokersmahjong.gamer.gd/htdocs/get-statistics.php?id=${userid}`,
+                `${BASE_URL}get-statistics.php?id=${userid}`,
             );
             const query = await response.json();
             // console.log(query);

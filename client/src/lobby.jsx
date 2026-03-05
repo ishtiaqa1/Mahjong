@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { heartbeat } from "./heartbeat.jsx";
+import { heartbeat } from "./Heartbeat.jsx";
+import BASE_URL from "../config.js"
 
 export default function LobbyToggle({ username }) {
   const [playerCount, setPlayerCount] = useState(0);
@@ -16,8 +17,7 @@ export default function LobbyToggle({ username }) {
         const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
         // Send a synchronous request to leave the lobby
         navigator.sendBeacon(
-          //"http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=leave",
-          "https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=leave",
+          `${BASE_URL}update-lobby.php?action=leave`,
           blob
         );
       }
@@ -30,8 +30,7 @@ export default function LobbyToggle({ username }) {
   // Fetch player count and lobby info
   const fetchPlayerCount = async () => {
     try {
-      //const response = await fetch("http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=status");
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=status");
+      const response = await fetch(`${BASE_URL}update-lobby.php?action=status`);
       const data = await response.json();
 
       if (data.lobbies) {
@@ -62,8 +61,7 @@ export default function LobbyToggle({ username }) {
   // This function checks if the player is in any lobby when the component loads
   const checkPlayerStatus = async () => {
     try {
-      //const response = await fetch("http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=status");
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=status");
+      const response = await fetch(`${BASE_URL}update-lobby.php?action=status`);
       const data = await response.json();
 
       if (data.lobbies) {
@@ -93,8 +91,7 @@ export default function LobbyToggle({ username }) {
     }
 
     try {
-      //const response = await fetch("http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=join", {
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=join", {
+      const response = await fetch(`${BASE_URL}update-lobby.php?action=join`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `username=${username}`,
@@ -132,8 +129,7 @@ export default function LobbyToggle({ username }) {
   // Leave lobby handler
   const leaveLobby = async () => {
     try {
-      //const response = await fetch("http://localhost/CSE442/2025-Spring/cse-442ad/update-lobby.php?action=leave", {
-      const response = await fetch("https://jokersmahjong.gamer.gd/htdocs/update-lobby.php?action=leave", {
+      const response = await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `username=${username}`,

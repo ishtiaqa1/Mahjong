@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 import "./page-styles/LoginPage.css";
+import BASE_URL from "../config.js"
 
 export default function LoginPage({ setUsername }) {
   const [formData, setFormData] = useState({ identifier: "", password: "" });
@@ -17,7 +18,7 @@ export default function LoginPage({ setUsername }) {
     setError(""); // Clear previous errors
 
     try {
-      const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/login.php", formData, {
+      const response = await axios.post(`${BASE_URL}login.php`, formData, {
         headers: { "Content-Type": "application/json" }
       });
   

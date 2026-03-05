@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import BASE_URL from "../config.js"
 
 export default function PasswordPopup(props) {
     const [error, setError] = useState("");
@@ -20,7 +20,7 @@ export default function PasswordPopup(props) {
 
         // First check old password is valid
         try {
-            const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/validate-password.php",
+            const response = await axios.post(`${BASE_URL}validate-password.php`,
                 passForm, { headers: { "Content-Type": "application/json" } }
             );
             // console.log(response.data);
@@ -43,7 +43,7 @@ export default function PasswordPopup(props) {
 
         // Then change to new password
         try {
-            const response = await axios.post("https://jokersmahjong.gamer.gd/htdocs/change-password.php",
+            const response = await axios.post(`${BASE_URL}change-password.php`,
                 passForm, { headers: { "Content-Type": "application/json" } }
             );
             // console.log(response.data);

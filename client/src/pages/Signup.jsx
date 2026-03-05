@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 import "./page-styles/Signup.css";
+import BASE_URL from "../config.js"
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post('https://jokersmahjong.gamer.gd/htdocs/signup.php', formData);
+      const response = await axios.post(`${BASE_URL}signup.php`, formData);
 
       if (response.data.success) {
         setSuccess('User registered successfully!');
