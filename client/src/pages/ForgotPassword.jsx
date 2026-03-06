@@ -18,7 +18,7 @@ export default function ForgotPassword() {
             </div>
 
             {/* Email Field */}
-            <form method="post" action="send-password-reset.php">
+            <form method="post" action={`${import.meta.env.VITE_API_URL}/forgotpassword/send-password-reset.php`}>
                 <label><b>&nbsp;&nbsp;Email Address</b></label>
                 <input
                     className="account-info"
