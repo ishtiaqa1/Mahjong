@@ -12,7 +12,7 @@ ini_set('display_errors', 0);
 error_reporting(0);
 header("Content-Type: application/json");
 
-require_once __DIR__ . '../db.php';
+require_once __DIR__ . '/../db.php';
 
 // Fetch all users from the 'users' table
 $sql = "SELECT * FROM users";

@@ -12,7 +12,7 @@ ini_set('display_errors', 0);
 error_reporting(0);
 header("Content-Type: application/json");
 
-require_once __DIR__ . '../db.php';
+require_once __DIR__ . '/../db.php';
 
 if (!isset($_GET['user1'])) {
     echo json_encode(["success" => false, "message" => "User ID is required."]);

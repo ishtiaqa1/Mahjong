@@ -18,7 +18,7 @@ if ($_POST["password"] === "") {
     die("Update failed: mismatching passwords");
 }
 
-require_once __DIR__ . '../db.php';
+require_once __DIR__ . '/../db.php';
 
 // Check if token exists and is still valid
 $token = $_POST["token"];

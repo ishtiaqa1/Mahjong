@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 ini_set('display_errors', 0);
 error_reporting(0);
 
-require_once __DIR__ . '../db.php';
+require_once __DIR__ . '/../db.php';
 
 // Email, token, and expiration time (currently 5min)
 $email = $_POST["email"];
