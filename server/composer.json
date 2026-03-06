@@ -2,6 +2,7 @@
     "name": "mahjong/backend",
     "description": "Mahjong PHP Backend",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "phpmailer/phpmailer": "^6.9"
     }
 }
