@@ -30,8 +30,8 @@ $mail->SMTPAuth = true;
 $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
-$mail->Username = "teamjokers442@gmail.com";
-$mail->Password = "bdjp yqni krdz nnai";
+$mail->Username = "jokermahjong442@gmail.com";
+$mail->Password = "iwtt rimz ebdx vhxr ";
 
 $mail->isHtml(true);
 
