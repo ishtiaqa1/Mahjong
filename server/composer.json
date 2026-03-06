@@ -1,0 +1,7 @@
+{
+    "name": "mahjong/backend",
+    "description": "Mahjong PHP Backend",
+    "require": {
+        "php": ">=8.0"
+    }
+}
