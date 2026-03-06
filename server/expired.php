@@ -1,5 +1,16 @@
 <?php
-// Get current name of React-generated CSS file and store as URL
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+ini_set('display_errors', 0);
+error_reporting(0);
+
 $url = "";
 $ext = ".css";
 $dir = "assets/";

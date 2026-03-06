@@ -1,26 +1,30 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-// Set the Content-Type for JSON response
-header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+ini_set('display_errors', 0);
+error_reporting(0);
+
+header('Content-Type: application/json');
 require_once __DIR__ . '/db.php';
 
-// Get data from the request body
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Sanitize input
 $name = $conn->real_escape_string($data['name']);
 $email = $conn->real_escape_string($data['email']);
 $password = password_hash($conn->real_escape_string($data['password']), PASSWORD_DEFAULT);
 
-// Check if any field is empty
 if (empty($name) || empty($email) || empty($password)) {
     echo json_encode(["success" => false, "message" => "All fields are required!"]);
     exit;
 }
 
-// Check if the email already exists
 $sql_check_email = "SELECT * FROM users WHERE email = ?";
 $stmt_email = $conn->prepare($sql_check_email);
 $stmt_email->bind_param("s", $email);
@@ -33,9 +37,8 @@ if ($result_email->num_rows > 0) {
     $conn->close();
     exit;
 }
-$stmt_email->close(); // Close after use
+$stmt_email->close();
 
-// Check if the username already exists
 $sql_check_name = "SELECT * FROM users WHERE name = ?";
 $stmt_name = $conn->prepare($sql_check_name);
 $stmt_name->bind_param("s", $name);
@@ -48,9 +51,8 @@ if ($result_name->num_rows > 0) {
     $conn->close();
     exit;
 }
-$stmt_name->close(); // Close after use
+$stmt_name->close();
 
-// Insert the new user
 $sql_insert = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 $stmt_insert = $conn->prepare($sql_insert);
 $stmt_insert->bind_param("sss", $name, $email, $password);
