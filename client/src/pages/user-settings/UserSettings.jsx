@@ -5,7 +5,7 @@ import CheckPassPopup from './CheckPassPopup';
 import UsernamePopup from './UsernamePopup';
 import EmailPopup from './EmailPopup';
 import PasswordPopup from './PasswordPopup';
-import BASE_URL from "../../config.js";
+import { fetchEmail as fetchEmailApi } from "../../api.js";
 
 export default function UserSettings() {
     const username = localStorage.getItem("username");
@@ -24,12 +24,8 @@ export default function UserSettings() {
         if (!username) { return; }
         const fetchEmail = async () => {
             try {
-                const response = await fetch(
-                    `${BASE_URL}fetch-email.php?username=${username}`,
-                );
-                const query = await response.json();
-                // console.log(query);
-                setEmail(query.data.email);
+                const query = await fetchEmailApi(username);
+                if (query.success) setEmail(query.data.email);
                 setLoading(false);
 
             } catch (error) {

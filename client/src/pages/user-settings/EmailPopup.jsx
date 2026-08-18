@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../../config.js";
+import { changeEmail } from "../../api.js";
 
 export default function EmailPopup(props) {
     const [error, setError] = useState("");
@@ -13,16 +12,13 @@ export default function EmailPopup(props) {
         setEmailForm({ ...emailForm, [e.target.name]: e.target.value });
     }
 
-    const changeEmail = async (e) => {
+    const handleChangeEmail = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${BASE_URL}change-email.php`,
-                emailForm, { headers: { "Content-Type": "application/json" } }
-            );
-            // console.log(response.data);
+            const response = await changeEmail(emailForm.user, emailForm.newemail);
             setError("");
 
-            if (response.data.success) {
+            if (response.success) {
                 setEmailForm({ user: localStorage.getItem("username"), newemail: "" });
                 props.setTrigger(false);
                 navigate("/");
@@ -50,7 +46,7 @@ export default function EmailPopup(props) {
                 <h2 className='settings-popup-header'>Enter your new email address</h2>
                 <button className='game-popup-close-button' onClick={() => handleClose()} >&#x2716;</button>
 
-                <form onSubmit={(e) => changeEmail(e)}>
+                <form onSubmit={(e) => handleChangeEmail(e)}>
                     <input type="hidden" name="user" value={emailForm.user} />
                     <input
                         className="settings-popup-input"

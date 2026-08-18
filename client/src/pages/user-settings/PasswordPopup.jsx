@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../../config.js";
+import { changePassword, validatePassword } from "../../api.js";
 
 export default function PasswordPopup(props) {
     const [error, setError] = useState("");
@@ -15,18 +14,15 @@ export default function PasswordPopup(props) {
         setPassForm({ ...passForm, [e.target.name]: e.target.value });
     }
 
-    const changePassword = async (e) => {
+    const handleChangePassword = async (e) => {
         e.preventDefault();
 
         // First check old password is valid
         try {
-            const response = await axios.post(`${BASE_URL}validate-password.php`,
-                passForm, { headers: { "Content-Type": "application/json" } }
-            );
-            // console.log(response.data);
+            const response = await validatePassword(passForm.user, passForm.pass);
             setError("");
 
-            if (!response.data.success) {
+            if (!response.success) {
                 setError("Incorrect password");
                 return false;
             }
@@ -43,13 +39,10 @@ export default function PasswordPopup(props) {
 
         // Then change to new password
         try {
-            const response = await axios.post(`${BASE_URL}change-password.php`,
-                passForm, { headers: { "Content-Type": "application/json" } }
-            );
-            // console.log(response.data);
+            const response = await changePassword(passForm.user, passForm.newpass);
             setError("");
 
-            if (response.data.success) {
+            if (response.success) {
                 setPassForm({ user: localStorage.getItem("username"), pass: "", newpass: "", conpass: "" });
                 props.setTrigger(false);
                 navigate("/");
@@ -76,7 +69,7 @@ export default function PasswordPopup(props) {
                 <h2 className='settings-popup-header'>Change password</h2>
                 <button className='game-popup-close-button' onClick={() => handleClose()} >&#x2716;</button>
 
-                <form onSubmit={(e) => changePassword(e)}>
+                <form onSubmit={(e) => handleChangePassword(e)}>
                     <input type="hidden" name="user" value={passForm.user} />
                     <input
                         className="settings-popup-input"

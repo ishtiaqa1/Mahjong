@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import axios from "axios";
 import "./page-styles/LoginPage.css";
-import BASE_URL from "../config.js"
+import { login } from "../api.js";
 
 export default function LoginPage({ setUsername }) {
   const [formData, setFormData] = useState({ identifier: "", password: "" });
@@ -18,22 +17,18 @@ export default function LoginPage({ setUsername }) {
     setError(""); // Clear previous errors
 
     try {
-      const response = await axios.post(`${BASE_URL}login.php`, formData, {
-        headers: { "Content-Type": "application/json" }
-      });
-  
-      // console.log(response.data); // Log response for debugging
-  
-      if (response.data.success) {
-        localStorage.setItem("username", response.data.user.name); // Save username
-        localStorage.setItem("userid", response.data.user.id); // Save username
-        setUsername(response.data.user.name); // Update state
+      const response = await login(formData.identifier, formData.password);
+
+      if (response.success) {
+        localStorage.setItem("username", response.user.name); // Save username
+        localStorage.setItem("userid", response.user.id); // Save username
+        setUsername(response.user.name); // Update state
         navigate("/");
       } else {
-        setError(response.data.message);
+        setError(response.message);
       }
     } catch (error) {
-      console.error("Axios error:", error.response ? error.response.data : error.message);
+      console.error("Login error:", error.message);
       setError("Login failed. Please try again.");
     }
   };

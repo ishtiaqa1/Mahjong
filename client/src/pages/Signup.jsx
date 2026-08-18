@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import axios from "axios";
 import "./page-styles/Signup.css";
-import BASE_URL from "../config.js"
+import { signup } from '../api.js';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -36,9 +35,9 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post(`${BASE_URL}signup.php`, formData);
+      const response = await signup(formData.name, formData.email, formData.password);
 
-      if (response.data.success) {
+      if (response.success) {
         setSuccess('User registered successfully!');
         setFormData({
           name: '',
@@ -47,7 +46,7 @@ export default function Signup() {
           confirmPassword: ''
         });
       } else {
-        setError(response.data.message || 'Error during signup!');
+        setError(response.message || 'Error during signup!');
       }
     } catch (error) {
       setError('There was an error with the request.');

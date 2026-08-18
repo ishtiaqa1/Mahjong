@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import BASE_URL from "../config.js"
+import { getLeaderboard as fetchLeaderboard, getPublicStats } from "../api.js";
 
 import ProfilePopup from './ProfilePopup.jsx';
 import "./page-styles/LoginPage.css";
@@ -26,37 +25,30 @@ export default function LeaderboardPage() {
 
     async function getLeaderboard() {
         try {
-            const response = await axios.get(`${BASE_URL}leaderboard.php`, {
-                responseType: "json",
-            });
-            // console.log(response.data);
+            const response = await fetchLeaderboard();
 
-            if (response.data.success) {
-                setLBD(response.data.leaderboard)
+            if (response.success) {
+                setLBD(response.leaderboard)
             }
             else {
-                setError(response.data.message);
+                setError(response.message);
             }
         } catch (error) {
-            console.error("Axios error:", error.response ? error.response.data : error.message);
+            console.error("Error loading leaderboard:", error.message);
             setError("Failed to load Leaderboard.");
         }
     }
 
     const fetchStats = async (e, userid, username) => {
         try {
-            const response = await fetch(
-                `${BASE_URL}get-statistics.php?id=${userid}`,
-            );
-            const query = await response.json();
-            // console.log(query);
-
-            setGamesPlayed(query.data.games);
-            setGamesWon(query.data.wins);
-            setRank(query.data.rank);
-            setActiveProfile(username);
-            setShowProfile(true);
-
+            const query = await getPublicStats(userid);
+            if (query.success) {
+                setGamesPlayed(query.data.games);
+                setGamesWon(query.data.wins);
+                setRank(query.data.rank);
+                setActiveProfile(username);
+                setShowProfile(true);
+            }
         } catch (error) {
             console.error("Error getting statistics: ", error);
         }

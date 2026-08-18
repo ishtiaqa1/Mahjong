@@ -13,11 +13,10 @@ export default function LobbyToggle({ username }) {
   useEffect(() => {
     const handleTabClose = () => {
       if (isConnected && username) {
-        const data = new URLSearchParams({ username });
-        const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
+        const blob = new Blob([JSON.stringify({ username })], { type: 'application/json' });
         // Send a synchronous request to leave the lobby
         navigator.sendBeacon(
-          `${BASE_URL}update-lobby.php?action=leave`,
+          `${BASE_URL}lobby?action=leave`,
           blob
         );
       }
@@ -30,7 +29,7 @@ export default function LobbyToggle({ username }) {
   // Fetch player count and lobby info
   const fetchPlayerCount = async () => {
     try {
-      const response = await fetch(`${BASE_URL}update-lobby.php?action=status`);
+      const response = await fetch(`${BASE_URL}lobby?action=status`);
       const data = await response.json();
 
       if (data.lobbies) {
@@ -61,7 +60,7 @@ export default function LobbyToggle({ username }) {
   // This function checks if the player is in any lobby when the component loads
   const checkPlayerStatus = async () => {
     try {
-      const response = await fetch(`${BASE_URL}update-lobby.php?action=status`);
+      const response = await fetch(`${BASE_URL}lobby?action=status`);
       const data = await response.json();
 
       if (data.lobbies) {
@@ -91,10 +90,10 @@ export default function LobbyToggle({ username }) {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}update-lobby.php?action=join`, {
+      const response = await fetch(`${BASE_URL}lobby?action=join`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `username=${username}`,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
       });
 
       const data = await response.json();
@@ -129,10 +128,10 @@ export default function LobbyToggle({ username }) {
   // Leave lobby handler
   const leaveLobby = async () => {
     try {
-      const response = await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
+      const response = await fetch(`${BASE_URL}lobby?action=leave`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `username=${username}`,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
       });
 
       if (response.ok) {

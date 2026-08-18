@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./page-styles/PendingRequests.css";
-import BASE_URL from "../config.js"
+import { acceptFriendRequest, deleteFriendRequest, getPendingRequests } from "../api.js";
 
 
 export default function PendingRequestsPage() {
@@ -15,18 +15,7 @@ export default function PendingRequestsPage() {
 
     const fetchPendingRequests = async () => {
       try {
-        const response = await fetch(
-          `${BASE_URL}get-pending-requests.php`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: currentid }),
-          }
-        );
-
-        if (!response.ok) throw new Error("Failed to fetch pending requests");
-
-        const data = await response.json();
+        const data = await getPendingRequests(currentid);
         if (Array.isArray(data)) setPendingRequests(data);
       } catch (error) {
         console.error("Error fetching pending requests:", error);
@@ -39,12 +28,7 @@ export default function PendingRequestsPage() {
 
   const handleAcceptRequest = async (requesterId) => {
     try {
-      const response = await fetch(`${BASE_URL}accept-friend.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentid, requesterId }),
-      });
-      const data = await response.json();
+      const data = await acceptFriendRequest(currentid, requesterId);
       if (data.success) {
         setPendingRequests(pendingRequests.filter(req => req.id !== requesterId));
       } else {
@@ -57,11 +41,7 @@ export default function PendingRequestsPage() {
 
   const handleDeleteRequest = async (requesterId) => {
     try {
-      await fetch(`${BASE_URL}delete-request.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: currentid, requesterId }),
-      });
+      await deleteFriendRequest(currentid, requesterId);
       setPendingRequests(pendingRequests.filter(req => req.id !== requesterId));
     } catch (error) {
       console.error("Error deleting request:", error);

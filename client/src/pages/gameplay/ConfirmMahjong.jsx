@@ -5,7 +5,7 @@ import { closestCorners, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../../config.js";
+import { recordGameWon } from "../../api.js";
 
 export default function ConfirmMahjong(props) {
     const [displayHand, setDisplayHand] = useState(props.displayHand);
@@ -356,18 +356,15 @@ export default function ConfirmMahjong(props) {
     const mahjongWin = () => {
         async function updateWins() {
             try {
-                const response = await axios.post(`${BASE_URL}updateWins.php?`, {
-                    user_id: userid
-                });
-                console.log(response.data);
-                if (response.data.success) {
+                const response = await recordGameWon(userid);
+                if (response.success) {
                     console.log("Player "+props.playerNum+" wins");
                 }
                 else {
-                    console.error(response.data.message);
+                    console.error(response.message);
                 }
             } catch (error) {
-                console.error("Axios error:", error.response ? error.response.data : error.message);
+                console.error("Error recording win:", error.message);
             }
         }
         updateWins();

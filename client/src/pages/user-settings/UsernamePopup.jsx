@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from "../../config.js";
+import { changeUsername } from "../../api.js";
 
 export default function UsernamePopup(props) {
     const [error, setError] = useState("");
@@ -13,18 +12,15 @@ export default function UsernamePopup(props) {
         setUserForm({ ...userForm, [e.target.name]: e.target.value });
     }
 
-    const changeUsername = async (e) => {
+    const handleChangeUsername = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${BASE_URL}change-username.php`,
-                userForm, { headers: { "Content-Type": "application/json" } }
-            );
-            // console.log(response.data);
+            const response = await changeUsername(userForm.olduser, userForm.newuser);
             setError("");
 
-            if (response.data.success) {
-                setUserForm({ olduser: response.data.newuser, newuser: "" });
-                localStorage.setItem("username", response.data.newuser);
+            if (response.success) {
+                setUserForm({ olduser: response.newuser, newuser: "" });
+                localStorage.setItem("username", response.newuser);
                 props.setTrigger(false);
                 navigate("/");
                 return true;
@@ -51,7 +47,7 @@ export default function UsernamePopup(props) {
                 <h2 className='settings-popup-header'>Enter your new username</h2>
                 <button className='game-popup-close-button' onClick={() => handleClose()} >&#x2716;</button>
 
-                <form onSubmit={(e) => changeUsername(e)}>
+                <form onSubmit={(e) => handleChangeUsername(e)}>
                     <input type="hidden" name="olduser" value={userForm.olduser} />
                     <input
                         className="settings-popup-input"

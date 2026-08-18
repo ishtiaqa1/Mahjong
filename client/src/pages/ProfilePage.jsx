@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
 import UploadPFP from '../UploadPFP.jsx';
 import "./page-styles/ProfilePage.css";
 import { heartbeat } from "../Heartbeat.jsx";
+import { getFriends, getMyStats, getPublicStats, toggleHideStats } from "../api.js";
 
 
 export default function ProfilePage() {
@@ -44,12 +44,7 @@ export default function ProfilePage() {
 
     const fetchFriends = async () => {
       try {
-        const response = await fetch(
-          `${BASE_URL}getfriends.php?user1=${currentid}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch friends");
-
-        const data = await response.json();
+        const data = await getFriends(currentid);
         setFriends(data.length > 0 ? data : []);
       } catch (error) {
         console.error("Error fetching friends:", error);
@@ -61,16 +56,12 @@ export default function ProfilePage() {
 
     const fetchStats = async () => {
       try {
-        const response = await fetch(
-          `${BASE_URL}get-user-statistics.php?id=${currentid}`,
-        );
-
-        const query = await response.json();
-        // console.log(query);
-        setGamesPlayed(query.data.games);
-        setGamesWon(query.data.wins);
-        setRank(query.data.rank);
-
+        const query = await getMyStats(currentid);
+        if (query.success) {
+          setGamesPlayed(query.data.games);
+          setGamesWon(query.data.wins);
+          setRank(query.data.rank);
+        }
       } catch (error) {
         console.error("Error getting statistics: ", error);
         setStatsError("Failed to load statistics.");
@@ -83,17 +74,14 @@ export default function ProfilePage() {
 
   const fetchFriendStats = async (e, userid, username) => {
     try {
-      const response = await fetch(
-        `${BASE_URL}get-statistics.php?id=${userid}`,
-      );
-      const query = await response.json();
-      // console.log(query);
-      setAPGamesPlayed(query.data.games);
-      setAPGamesWon(query.data.wins);
-      setAPRank(query.data.rank);
-      setActiveProfile(username);
-      setShowProfile(true);
-
+      const query = await getPublicStats(userid);
+      if (query.success) {
+        setAPGamesPlayed(query.data.games);
+        setAPGamesWon(query.data.wins);
+        setAPRank(query.data.rank);
+        setActiveProfile(username);
+        setShowProfile(true);
+      }
     } catch (error) {
       console.error("Error getting statistics: ", error);
     }
@@ -103,10 +91,8 @@ export default function ProfilePage() {
 
   const HideStats = async () => {
     const userId = localStorage.getItem("userid");
-    const url = `${BASE_URL}hide-stats.php?userid=${userId}`;
-
     try {
-      const res = await fetch(url);
+      await toggleHideStats(userId);
     } catch (err) {
       console.error("Error toggling stats:", err);
     }

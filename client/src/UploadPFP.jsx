@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import BASE_URL from "./config.js";
+import { getProfilePicture, uploadProfilePicture } from "./api.js";
 
 export default function UploadPFP() {
     const [file, setFile] = useState(null);     //file being uploaded (must be some type of image; not verified)
@@ -11,22 +10,17 @@ export default function UploadPFP() {
     useEffect(() => {
         async function get_pfp(userid) {
             try{
-                const response = await axios.post(`${BASE_URL}get-pfp.php?`, {"id": userid}, {
-                    headers: { "Content-Type": "application/json" }
-                });
-                if(response.data.success){
-                    //I took the substring here because every time I changed it server-side, the SQL queries somehow broke; control coupling
+                const response = await getProfilePicture(userid);
+                if(response.success && response.filepath){
                     //The random number stops the browser from caching the old profile picture and ignoring changes to it
                     const num = String(Math.floor(Math.random()*512));
-                    const path = BASE_URL + response.data.filepath.substring(9) + "?" + num;
-                    //console.log(userid +": " + path);
+                    const path = response.filepath + "?" + num;
                     setImage(<img src={path} className="profile-picture"/>);
                 } else {
-                    //console.log("Error retrieving profile picture: "+response.data.message);
+                    //console.log("Error retrieving profile picture: "+response.message);
                 }
             } catch(error) {
-                console.log("Axios error:", error.response ? error.response.data : error.message);
-                console.error(err);
+                console.error("Error retrieving profile picture:", error.message);
             }
         }
         get_pfp(id);
@@ -48,23 +42,18 @@ export default function UploadPFP() {
 
     async function send_file() {
         setMsg(<p/>)
-        const formData = new FormData();
-        formData.append("id", id);
-        formData.append("image", file);
         try{
-            const response = await axios.post(`${BASE_URL}upload-pfp.php`, formData, {
-                    headers: { "Content-Type": "multipart/form-data" }
-                });
-            if(response.data.success){
+            const response = await uploadProfilePicture(id, file);
+            if(response.success){
                 console.log("Image uploaded successfully!");
                 setMsg(<p style={{ color: "green" }}>{"Profile picture updated!"}</p>)
-
-                //display "Profile picture updated successfully"
+                const num = String(Math.floor(Math.random()*512));
+                setImage(<img src={response.filepath + "?" + num} className="profile-picture"/>);
             } else {
-                setMsg(<p style={{ color: "red" }}>{"Error: "+response.data.message}</p>);
+                setMsg(<p style={{ color: "red" }}>{"Error: "+response.message}</p>);
             }
         } catch (error) {
-            setMsg(<p style={{ color: "red" }}>{"Axios error:"+ error.response ? error.response.data : error.message}</p>);
+            setMsg(<p style={{ color: "red" }}>{"Error: " + error.message}</p>);
         }
     }
 

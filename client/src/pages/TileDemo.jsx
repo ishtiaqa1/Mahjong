@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
 import BASE_URL from "../config.js"
+import { recordGamePlayed, recordGameWon } from "../api.js";
 
 import BaseTiles from "./gameplay/BaseTiles.jsx";
 import TestTiles from "./gameplay/TestTiles.jsx";
@@ -71,10 +71,9 @@ export default function TileDemo() {
     useEffect(() => {
         const handleTabClose = () => {
             if (username) {
-                const data = new URLSearchParams({ username });
-                const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
+                const blob = new Blob([JSON.stringify({ username })], { type: 'application/json' });
                 navigator.sendBeacon(
-                    `${BASE_URL}update-lobby.php?action=leave`,
+                    `${BASE_URL}lobby?action=leave`,
                     blob
                 );
             }
@@ -156,19 +155,16 @@ export default function TileDemo() {
 
 
     const updateGamesPlayed = async (userId) => {
-        try {  // Ensure correct key
+        try {
             if (!userId) {
                 console.error("User ID is missing from localStorage.");
                 return;
             }
 
-            const response = await axios.post(`${BASE_URL}updateGames.php`, {
-                user_id: userId,
-            });
-
-            console.log('Games played updated:', response.data);
+            const response = await recordGamePlayed(userId);
+            console.log('Games played updated:', response);
         } catch (error) {
-            console.error('Error calling PHP script:', error.response?.data || error.message);
+            console.error('Error updating games played:', error.message);
         }
     };
     updateGamesPlayed(localStorage.getItem("userid")).then(() => {
@@ -183,13 +179,10 @@ export default function TileDemo() {
                 return;
             }
 
-            const response = await axios.post(`${BASE_URL}gamesWon.php`, {
-                user_id: userId,
-            });
-
-            console.log('Games won updated:', response.data);
+            const response = await recordGameWon(userId);
+            console.log('Games won updated:', response);
         } catch (error) {
-            console.error('Error calling PHP script:', error.response?.data || error.message);
+            console.error('Error updating games won:', error.message);
         }
     };
 
@@ -638,10 +631,10 @@ export default function TileDemo() {
 
     const leaveLobby = async () => {
         try {
-            const response = await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
+            await fetch(`${BASE_URL}lobby?action=leave`, {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `username=${username}`,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username }),
             });
         } catch (error) {
             console.error("Error leaving lobby:", error);

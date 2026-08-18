@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import BASE_URL from "../../config.js";
+import { validatePassword } from "../../api.js";
 
 export default function CheckPassPopup(props) {
     const [error, setError] = useState("");
@@ -11,16 +10,13 @@ export default function CheckPassPopup(props) {
         setPassForm({ ...passForm, [e.target.name]: e.target.value });
     };
 
-    const validatePassword = async (e) => {
+    const handleValidatePassword = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${BASE_URL}validate-password.php`,
-                passForm, { headers: { "Content-Type": "application/json" } }
-            );
-            // console.log(response.data);
+            const response = await validatePassword(passForm.user, passForm.pass);
             setError("");
 
-            if (response.data.success) {
+            if (response.success) {
                 setPassForm({ user: localStorage.getItem("username"), pass: "" });
                 props.setEffect(true);
                 props.setTrigger(false);
@@ -49,7 +45,7 @@ export default function CheckPassPopup(props) {
                 <button className='game-popup-close-button' onClick={() => handleClose()} >&#x2716;</button>
                 <h2 className='settings-popup-header'>Enter your current password</h2>
 
-                <form onSubmit={(e) => validatePassword(e)}>
+                <form onSubmit={(e) => handleValidatePassword(e)}>
                     <input type="hidden" name="user" value={passForm.user} />
                     <input
                         className="settings-popup-input"

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BASE_URL from "../config.js"
 
 import ProfilePopup from './ProfilePopup.jsx';
 import { heartbeat } from "../Heartbeat.jsx";
+import { getFriends, getPublicStats, removeFriend as removeFriendApi } from "../api.js";
 
 export default function AllFriendsPage() {
   const [friends, setFriends] = useState([]);
@@ -25,12 +25,7 @@ export default function AllFriendsPage() {
     const fetchFriends = async () => {
       heartbeat(localStorage.getItem("username"));  //tells the server that this user is currently online
       try {
-        const response = await fetch(
-          `${BASE_URL}getfriends.php?user1=${currentid}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch friends");
-
-        const data = await response.json();
+        const data = await getFriends(currentid);
         setFriends(data.length > 0 ? data : []);
       } catch (error) {
         console.error("Error fetching friends:", error);
@@ -45,19 +40,9 @@ export default function AllFriendsPage() {
 
   const removeFriend = async (friendId) => {
     try {
-      const response = await fetch(`${BASE_URL}removefriend.php`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user1: currentid,
-          user2: friendId,
-        }),
-      });
-  
-      if (!response.ok) throw new Error("Failed to remove friend");
-  
+      const response = await removeFriendApi(currentid, friendId);
+      if (!response.success) throw new Error(response.message || "Failed to remove friend");
+
       // Remove friend from state
       setFriends((prevFriends) => prevFriends.filter((f) => f.id !== friendId));
     } catch (error) {
@@ -65,22 +50,18 @@ export default function AllFriendsPage() {
       setFriendsError("Could not remove friend.");
     }
   };
-  
+
 
   const fetchStats = async (e, userid, username) => {
     try {
-      const response = await fetch(
-        `${BASE_URL}get-statistics.php?id=${userid}`,
-      );
-      const query = await response.json();
-      // console.log(query);
-
-      setGamesPlayed(query.data.games);
-      setGamesWon(query.data.wins);
-      setRank(query.data.rank);
-      setActiveProfile(username);
-      setShowProfile(true);
-
+      const query = await getPublicStats(userid);
+      if (query.success) {
+        setGamesPlayed(query.data.games);
+        setGamesWon(query.data.wins);
+        setRank(query.data.rank);
+        setActiveProfile(username);
+        setShowProfile(true);
+      }
     } catch (error) {
       console.error("Error getting statistics: ", error);
     }

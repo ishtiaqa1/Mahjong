@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import "./page-styles/AddFriends.css";
-import BASE_URL from "../config.js";
+import { getAllUsers, sendFriendRequest as sendFriendRequestApi } from "../api.js";
 
 
 export default function ProfilePage() {
@@ -28,14 +28,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${BASE_URL}getusers.php`);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        // console.log(data);
+        const data = await getAllUsers();
 
         if (Array.isArray(data) && data.length > 0) {
           setUsers(data);
@@ -58,26 +51,11 @@ export default function ProfilePage() {
   const sendFriendRequest = async (requestedUserId) => {
     setLoading(true);
     try {
-      const response = await fetch(`${BASE_URL}request-friend.php`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: currentid,
-          requestedId: requestedUserId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to send friend request: ${response.status}`);
-      }
-
-      const data = await response.json();
+      const data = await sendFriendRequestApi(currentid, requestedUserId);
       if (data.success) {
         alert('Friend request sent!');
       } else {
-        alert('Failed to send friend request.');
+        alert(data.message || 'Failed to send friend request.');
       }
     } catch (error) {
       console.error('Error sending friend request:', error);

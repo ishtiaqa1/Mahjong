@@ -40,10 +40,10 @@ export default function App() {
     const handleLogout = async () => {
         if (username) {
             try {
-                await fetch(`${BASE_URL}update-lobby.php?action=leave`, {
+                await fetch(`${BASE_URL}lobby?action=leave`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: `username=${username}`,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username }),
                 });
             } catch (error) {
                 console.error("Error leaving lobby on logout:", error);
